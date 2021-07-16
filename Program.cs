@@ -61,42 +61,37 @@ namespace _16._3
 
         static void Main(string[] args)
         {
-            int[,] array1 = MatrixCreate(1000, 2001);
+            int[,] array1 = MatrixCreate(1000, 2000);
             int[,] array2 = MatrixCreate(2000, 20000);
 
-            Console.WriteLine("Исходные матрицы сформированы\n");
+            Console.WriteLine("Initial matrices are formed\n");
             //PrintArray(array1);
             //PrintArray(array2);
 
             //////////////////////////////////// 1 поток \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-            Console.WriteLine("Умножаем матрицы 1 способом...");
+            Console.WriteLine("Matrix multiplication in method 1 (without multithreading)...");
 
             MatrixMultiplier matrixMultiplier = new MatrixMultiplier(array1, array2);
 
             matrixMultiplier.Calculate();
 
-            Console.WriteLine($"Результирующая матрица построена 1 способом (один поток) за {matrixMultiplier.GetRunninTime()} секунд\n");
+            Console.WriteLine($"\nThe resulting matrix is built 1 way (one thread) in {matrixMultiplier.GetRunninTime()} seconds.\n");
 
             //matrixMultiplier.PrintResult();
 
             //////////////////////////////////// Многопоточность \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-            Console.WriteLine("\nУмножаем матрицы 2 способом...");
+            Console.WriteLine("\nMultiply matrices in method 2 (using multithreading)...");
 
             MatrixMultiplier_UsingMultiTasks multiplier_UsingMultiTasks = new MatrixMultiplier_UsingMultiTasks(array1, array2);
 
             multiplier_UsingMultiTasks.Calculate();
 
-            Console.WriteLine($"\nРезультирующая матрица построена 2 способом (многопоточность) за {multiplier_UsingMultiTasks.GetRunninTime()} секунд\n");
+            Console.WriteLine($"\nThe resulting matrix is constructed in method 2 in (using multithreading) за {multiplier_UsingMultiTasks.GetRunninTime()} seconds.\n");
 
             // multiplier_UsingMultiTasks.PrintResult();
 
-            Console.WriteLine("Вычисления завершены");
-            //Console.WriteLine("Выполняется запись массивов в файлы...");
-
-            //ResultsRecording resultsRecording1 = new ResultsRecording("Matrix-Result-1.txt", matrixMultiplier.GetMatrixResult());
-            //ResultsRecording resultsRecording2 = new ResultsRecording("Matrix-Result-2.txt", multiplier_UsingMultiTasks.GetMatrixResult());
-
+            Console.WriteLine("Calculations completed");
             Console.ReadKey();
         }
     }
