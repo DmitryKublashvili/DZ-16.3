@@ -92,23 +92,23 @@ namespace _16._3
 
         static void Main(string[] args)
         {
-            int[,] array1 = MatrixCreate(100, 2000);
-            int[,] array2 = MatrixCreate(2000, 3000);
+            int[,] array1 = MatrixCreate(1000, 2000);
+            int[,] array2 = MatrixCreate(2000, 30000);
 
             Console.WriteLine("Initial matrices are formed\n");
             //PrintArray(array1);
             //PrintArray(array2);
 
             //////////////////////////////////// 1 поток \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-            //Console.WriteLine("Matrix multiplication in method 1 (without multithreading)...");
+            Console.WriteLine("Matrix multiplication in method 1 (without multithreading)...");
 
-            //MatrixMultiplier matrixMultiplier = new MatrixMultiplier(array1, array2);
+            MatrixMultiplier matrixMultiplier = new MatrixMultiplier(array1, array2);
 
-            //matrixMultiplier.Calculate();
+            matrixMultiplier.Calculate();
 
-            //Console.ForegroundColor = ConsoleColor.Cyan;
-            //Console.WriteLine($"\nThe resulting matrix is built in method 1 (one thread) in {matrixMultiplier.GetRunninTime()} seconds.\n");
-            //Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine($"\nThe resulting matrix is built in method 1 (one thread) in {matrixMultiplier.GetRunninTime()} seconds.\n");
+            Console.ResetColor();
 
             //matrixMultiplier.PrintResult();
 
@@ -126,11 +126,11 @@ namespace _16._3
 
             //multiplier_UsingMultiTasks.PrintResult();
 
-            Console.WriteLine("Calculations completed");
-
             Console.WriteLine("Equivalence check ...");
 
-            //Console.WriteLine(AreMatrixcesEquivalent(matrixMultiplier.GetMatrixResult(), multiplier_UsingMultiTasks.GetMatrixResult()));
+            Console.WriteLine(AreMatrixcesEquivalent(matrixMultiplier.GetMatrixResult(), multiplier_UsingMultiTasks.GetMatrixResult()));
+
+            Console.WriteLine("All calculations completed");
 
             Console.ReadKey();
         }
