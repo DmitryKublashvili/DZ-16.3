@@ -92,9 +92,7 @@ namespace _16._3
 
                 try
                 {
-                    if (TasksList[taskIndex].Status.ToString() != "Running" 
-                        && TasksList[taskIndex].Status.ToString() != "WaitingToRun"
-                        && TasksList[taskIndex].Status.ToString() != "RanToCompletion")
+                    if (TasksList[taskIndex].Status.ToString() == "Created")
                     {
                         TasksList[taskIndex].Start();
                     }
