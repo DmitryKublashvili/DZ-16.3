@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace _16._3
@@ -81,23 +82,24 @@ namespace _16._3
 
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-
             Console.WriteLine("Calculation in process...");
 
             int taskIndex = 0;
 
             while (CurrentRow < Rows)
             {
+                Thread.Sleep(10);
+
                 try
                 {
-                    if (TasksList[taskIndex].Status.ToString() != "Running")
+                    if (TasksList[taskIndex].Status.ToString() != "Running" && TasksList[taskIndex].Status.ToString() != "WaitingToRun")
                     {
                         TasksList[taskIndex].Start();
                     }
                 }
                 catch (Exception e)
                 {
-                    // Console.WriteLine($"Task - {TasksList[taskIndex].Id} вызвал исключение: {e.Message}");
+                    Console.WriteLine($"Task - {TasksList[taskIndex].Id} threw an exception: {e.Message}. Task status: {TasksList[taskIndex].Status}");
                 }
 
                 taskIndex++;
@@ -116,9 +118,7 @@ namespace _16._3
             }
 
             stopwatch.Stop();
-
             RunningTime = stopwatch.ElapsedMilliseconds / 1000;
-
             Console.WriteLine("Calculation completed");
         }
 
@@ -133,7 +133,7 @@ namespace _16._3
                 if (item.Status.ToString() == "Running")
                 {
                     IsCalculationComplete = false;
-                    //  Console.WriteLine($"Поток {item.Id} все еще в стадии выполнения. {item.Status}");
+                    //Console.WriteLine($"Поток {item.Id} все еще в стадии выполнения. {item.Status}");
                     return;
                 }
             }
@@ -141,14 +141,14 @@ namespace _16._3
         }
 
         /// <summary>
-        /// Creates threads
+        /// Creates tasks list
         /// </summary>
         /// <returns></returns>
         private List<Task> TasksCreating()
         {
             List<Task> tasks = new List<Task>();
 
-            for (int i = 0; i < 120; i++)
+            for (int i = 0; i < 100; i++)
             {
                 tasks.Add(new Task(TaskMethod));
             }
